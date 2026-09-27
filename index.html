@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#F8D9E6"><title>IELTS 词汇打卡工作台｜熟悉词保留版</title>
+<style>
+:root{--pink:#F8D9E6;--blue:#DCEEFF;--mint:#DDF5E7;--yellow:#FFF1C9;--lav:#E9E0FF;--text:#404255;--muted:#85889a}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;color:var(--text);background:linear-gradient(135deg,#fff7fb,#f7fbff,#f9fff9)}
+.wrap{max-width:1120px;margin:auto;padding:22px 18px 50px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:5px}.panel{background:#ffffffdf;border:1px solid #eeeaf1;border-radius:24px;padding:18px;margin-top:18px;box-shadow:0 10px 30px #4a3c5a12}
+.controls{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end}label{font-size:13px;color:var(--muted);display:block;margin-bottom:7px}
+select,input{width:100%;border:1px solid #e4e2e9;border-radius:14px;padding:11px 12px;background:#fff;color:var(--text);font:inherit}
+button{border:0;border-radius:14px;padding:11px 15px;font-weight:700;cursor:pointer}.primary{background:var(--pink)}.soft{background:var(--blue)}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.stat{background:#faf8fc;padding:10px 13px;border-radius:14px;font-size:13px}
+.progress{height:10px;background:#eeeaf1;border-radius:99px;overflow:hidden;margin:15px 0 20px}.bar{height:100%;background:linear-gradient(90deg,#f6c5d9,#cce7ff,#ccefdc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}.card{border-radius:22px;padding:18px;min-height:215px;border:1px solid #00000008}
+.card:nth-child(5n+1){background:var(--pink)}.card:nth-child(5n+2){background:var(--blue)}.card:nth-child(5n+3){background:var(--mint)}.card:nth-child(5n+4){background:var(--yellow)}.card:nth-child(5n){background:var(--lav)}.card.mastered{background:#fff!important;opacity:.88}
+.word{font-size:24px;font-weight:800}.ipa{font-size:14px;color:#66697b;margin-top:5px}.meaning{margin-top:9px;font-size:15px;line-height:1.55}.exercise{margin-top:14px}
+.feedback{min-height:24px;margin-top:6px;font-weight:700;font-size:13px}.correct{color:#168451}.wrong{color:#d44747}
+.actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}.familiar{display:flex;align-items:center;gap:6px}.familiar input{width:18px;height:18px;accent-color:#61b78e}
+.empty{text-align:center;padding:45px;color:var(--muted)}@media(max-width:760px){.controls{grid-template-columns:1fr 1fr}.controls>div:last-child{grid-column:1/-1}h1{font-size:24px}}
+
+/* Mobile App UX */
+html{background:#f7f9fc}
+body{min-height:100vh;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
+button,input,select{touch-action:manipulation}
+.wrap{padding:max(18px,env(safe-area-inset-top)) 14px max(32px,env(safe-area-inset-bottom));}
+header{position:sticky;top:0;z-index:20;padding:8px 0 12px;background:linear-gradient(180deg,#f9fbff 78%,transparent)}
+.panel{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.card{min-height:0;padding:17px;border-radius:20px;box-shadow:0 5px 18px rgba(60,70,90,.06)}
+.word{font-size:27px}
+.exercise input{font-size:16px;min-height:48px}
+select,input{min-height:46px;font-size:16px}
+button{min-height:46px}
+.actions{flex-wrap:wrap}
+.familiar{font-size:14px}
+.familiar input{min-height:20px}
+@media(max-width:760px){
+  .wrap{padding-left:12px;padding-right:12px}
+  h1{font-size:22px}
+  .sub{font-size:12px}
+  header .soft{padding:9px 11px;font-size:12px;min-height:40px}
+  .panel{border-radius:20px;padding:14px;margin-top:10px}
+  .controls{grid-template-columns:1fr 1fr;gap:9px}
+  .controls>div:last-child{grid-column:1/-1}
+  .controls button{width:100%}
+  .stats{gap:7px;margin-top:12px}
+  .stat{flex:1 1 calc(50% - 7px);padding:9px 10px}
+  .grid{grid-template-columns:1fr;gap:10px}
+  .card{border-radius:18px}
+  .meaning{font-size:14px}
+  .actions{align-items:center}
+  .actions .soft{margin-left:auto}
+}
+@media(min-width:761px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="IELTS词汇">
+</head><body><div class="wrap">
+<header><div><h1>🌷 IELTS 词汇打卡工作台</h1><div class="sub">按文档顺序 · 每日数量可选 · 拼写即时判定 · 熟悉词变白标记</div></div><button class="soft" onclick="resetProgress()">重置进度</button></header>
+<section class="panel"><div class="controls">
+<div><label>每天背多少个</label><input id="daily" type="number" min="1" max="205" value="200"></div>
+<div><label>学习范围</label><select id="mode"><option value="new">全部词汇（熟悉词变白）</option><option value="all">全部词汇</option></select></div>
+<div><label>显示顺序</label><select disabled><option>严格按文档顺序</option></select></div>
+<div><button class="primary" onclick="render(true)">开始今日学习</button></div></div>
+<div class="stats"><div class="stat">词库 <b id="total"></b></div><div class="stat">今日 <b id="shown"></b></div><div class="stat">已熟悉 <b id="mastered"></b></div><div class="stat">当前位置 <b id="pos"></b></div></div>
+<div class="progress"><div class="bar" id="bar"></div></div></section>
+<section id="cards" class="grid"></section></div>
+<script>
+const DATA=[{"word":"major","ipa":"mˈeɪdʒɝ","meaning":"专业"},{"word":"discipline","ipa":"dˈɪsʌplʌn","meaning":"纪律；学科"},{"word":"anthropology","ipa":"ˌænθrʌpˈɑlʌdʒi","meaning":"人类学"},{"word":"linguistics","ipa":"lɪŋɡwˈɪstɪks","meaning":"语言学"},{"word":"physiology","ipa":"fˌɪziˈɑlʌdʒi","meaning":"生理学"},{"word":"psychology","ipa":"saɪkˈɑlʌdʒi","meaning":"心理学"},{"word":"mining","ipa":"mˈaɪnɪŋ","meaning":"采矿"},{"word":"physical","ipa":"fˈɪzɪkʌl","meaning":"身体的"},{"word":"physics","ipa":"fˈɪzɪks","meaning":"物理学"},{"word":"fine","ipa":"fˈaɪn","meaning":"好的"},{"word":"arts","ipa":"ˈɑrts","meaning":"文科"},{"word":"science","ipa":"sˈaɪʌns","meaning":"科学；理科"},{"word":"politics","ipa":"pˈɑlʌtˌɪks","meaning":"政治"},{"word":"philosophy","ipa":"fʌlˈɑsʌfi","meaning":"哲学"},{"word":"geography","ipa":"dʒiˈɑɡrʌfi","meaning":"地理"},{"word":"photojournalism","ipa":"—","meaning":"摄影新闻学"},{"word":"history","ipa":"hˈɪstɝi","meaning":"历史"},{"word":"astronomy","ipa":"ʌstrˈɑnʌmi","meaning":"天文学"},{"word":"media","ipa":"mˈidiʌ","meaning":"媒体"},{"word":"language","ipa":"lˈæŋɡwʌdʒ","meaning":"语言"},{"word":"applied","ipa":"ʌplˈaɪd","meaning":"应用的"},{"word":"environment","ipa":"ɪnvˈaɪrʌnmʌnt","meaning":"环境"},{"word":"chemistry","ipa":"kˈemʌstri","meaning":"化学"},{"word":"management","ipa":"mˈænʌdʒmʌnt","meaning":"管理"},{"word":"statistics","ipa":"stʌtˈɪstɪks","meaning":"统计学"},{"word":"archaeological","ipa":"ˌɑrkiʌlˈɑdʒɪkʌl","meaning":"考古学的"},{"word":"accountancy","ipa":"ʌkˈaʊntʌnsi","meaning":"会计学"},{"word":"biology","ipa":"baɪˈɑlʌdʒi","meaning":"生物学"},{"word":"computer","ipa":"kʌmpjˈutɝ","meaning":"电脑"},{"word":"literature","ipa":"lˈɪtɝʌtʃɝ","meaning":"文学"},{"word":"sociology","ipa":"sˌoʊsiˈɑlʌdʒi","meaning":"社会学"},{"word":"engineering","ipa":"ˈendʒʌnˈɪrɪŋ","meaning":"工程学"},{"word":"architecture","ipa":"ˈɑrkʌtˌektʃɝ","meaning":"建筑学"},{"word":"business","ipa":"bˈɪznʌs","meaning":"商务"},{"word":"law","ipa":"lˈɔ","meaning":"法学"},{"word":"economics","ipa":"ˌekʌnˈɑmɪks","meaning":"经济学"},{"word":"finance","ipa":"fʌnˈæns","meaning":"金融学"},{"word":"banking","ipa":"bˈæŋkɪŋ","meaning":"银行学"},{"word":"orientation","ipa":"ˌɔrientˈeɪʃʌn","meaning":"新生入学教育会"},{"word":"welcome package","ipa":"wˈelkʌm pˈækʌdʒ","meaning":"入学或旅游时收到的欢迎辞"},{"word":"register","ipa":"rˈedʒɪstɝ","meaning":"注册"},{"word":"enroll","ipa":"enrˈoʊl","meaning":"报名"},{"word":"curriculum","ipa":"kɝˈɪkjʌlʌm","meaning":"课程"},{"word":"semester","ipa":"sʌmˈestɝ","meaning":"学期"},{"word":"term","ipa":"tˈɝm","meaning":"学期；术语"},{"word":"assignment","ipa":"ʌsˈaɪnmʌnt","meaning":"作业"},{"word":"session","ipa":"sˈeʃʌn","meaning":"课程；时间"},{"word":"virtual","ipa":"vˈɝtʃuʌl","meaning":"虚拟的"},{"word":"test","ipa":"tˈest","meaning":"测试"},{"word":"course","ipa":"kˈɔrs","meaning":"课程"},{"word":"study","ipa":"stˈʌdi","meaning":"学习；书房"},{"word":"intensive","ipa":"ˌɪntˈensɪv","meaning":"强化的"},{"word":"practice","ipa":"prˈæktʌs","meaning":"练习"},{"word":"email","ipa":"imˈeɪl","meaning":"电邮"},{"word":"lecture","ipa":"lˈektʃɝ","meaning":"授课"},{"word":"tutorial","ipa":"tutˈɔriʌl","meaning":"小组讨论"},{"word":"seminar","ipa":"sˈemʌnˌɑr","meaning":"学术研讨会"},{"word":"assessment","ipa":"ʌsˈesmʌnt","meaning":"学习考核"},{"word":"attendance","ipa":"ʌtˈendʌns","meaning":"出勤率"},{"word":"exam","ipa":"ɪɡzˈæm","meaning":"考试"},{"word":"failure","ipa":"fˈeɪljɝ","meaning":"失败"},{"word":"mark","ipa":"mˈɑrk","meaning":"分数"},{"word":"grade","ipa":"ɡrˈeɪd","meaning":"年级；成绩"},{"word":"score","ipa":"skˈɔr","meaning":"分数"},{"word":"record","ipa":"rʌkˈɔrd","meaning":"记录；唱片；学习成绩"},{"word":"resit","ipa":"—","meaning":"重考"},{"word":"note","ipa":"nˈoʊt","meaning":"笔记"},{"word":"rate","ipa":"rˈeɪt","meaning":"比例"},{"word":"group","ipa":"ɡrˈup","meaning":"群体；团队；小组"},{"word":"office","ipa":"ˈɔfɪs","meaning":"办公室"},{"word":"parental teaching","ipa":"pɝˈentʌl tˈitʃɪŋ","meaning":"父母的教育"},{"word":"class","ipa":"klˈæs","meaning":"班级"},{"word":"reception","ipa":"rɪsˈepʃʌn","meaning":"招待会；接待处"},{"word":"goal","ipa":"ɡˈoʊl","meaning":"目标"},{"word":"tape","ipa":"tˈeɪp","meaning":"磁带"},{"word":"video","ipa":"vˈɪdioʊ","meaning":"录像"},{"word":"plus","ipa":"plˈʌs","meaning":"加"},{"word":"level","ipa":"lˈevʌl","meaning":"水平；程度"},{"word":"beginning","ipa":"bɪɡˈɪnɪŋ","meaning":"开始；初级"},{"word":"beginner","ipa":"bɪɡˈɪnɝ","meaning":"初试者"},{"word":"fundamental","ipa":"fˌʌndʌmˈentʌl","meaning":"基本的；基础的"},{"word":"elementary","ipa":"ˌelʌmˈentri","meaning":"初级的"},{"word":"advanced","ipa":"ʌdvˈænst","meaning":"先进的；高级的"},{"word":"mid","ipa":"mˈɪd","meaning":"中间的"},{"word":"discussion","ipa":"dɪskˈʌʃʌn","meaning":"讨论"},{"word":"stress","ipa":"strˈes","meaning":"重音；压力"},{"word":"unemployment","ipa":"ˌʌnɪmplˈɔɪmʌnt","meaning":"失业"},{"word":"surroundings","ipa":"sɝˈaʊndɪŋz","meaning":"环境"},{"word":"diet","ipa":"dˈaɪʌt","meaning":"饮食"},{"word":"take regular exercise","ipa":"tˈeɪk rˈeɡjʌlɝ ˈeksɝsˌaɪz","meaning":"定期运动"},{"word":"make plans","ipa":"mˈeɪk plˈænz","meaning":"制定计划"},{"word":"set money aside","ipa":"sˈet mˈʌni ʌsˈaɪd","meaning":"存钱"},{"word":"do training courses","ipa":"dˈu trˈeɪnɪŋ kˈɔrsʌz","meaning":"上培训课"},{"word":"open admission","ipa":"ˈoʊpʌn ædmˈɪʃʌn","meaning":"免试入学制"},{"word":"cassette","ipa":"kʌsˈet","meaning":"磁带"},{"word":"recording","ipa":"rʌkˈɔrdɪŋ","meaning":"录音"},{"word":"deadline","ipa":"dˈedlˌaɪn","meaning":"最后期限"},{"word":"dropout","ipa":"drˈɑpˌaʊt","meaning":"辍学"},{"word":"cramming","ipa":"krˈæmɪŋ","meaning":"填鸭式教学"},{"word":"feedback","ipa":"fˈidbˌæk","meaning":"反馈"},{"word":"videotape","ipa":"vˈɪdioʊtˈeɪp","meaning":"录像带"},{"word":"hit","ipa":"hˈɪt","meaning":"引人注意的东西；技巧"},{"word":"examination","ipa":"ɪɡzˌæmʌnˈeɪʃʌn","meaning":"考试"},{"word":"diploma","ipa":"dɪplˈoʊmɑ","meaning":"毕业证书"},{"word":"workshop","ipa":"wˈɝkʃˌɑp","meaning":"工作室"},{"word":"panic","ipa":"pˈænɪk","meaning":"恐惧"},{"word":"teaching","ipa":"tˈitʃɪŋ","meaning":"教学"},{"word":"president","ipa":"prˈezʌdˌent","meaning":"总统；校长；总裁"},{"word":"headmaster","ipa":"hˈedmˈæstɝ","meaning":"校长"},{"word":"director","ipa":"dɝˈektɝ","meaning":"主管；导演"},{"word":"scientist","ipa":"sˈaɪʌntɪst","meaning":"科学家"},{"word":"secretary","ipa":"sˈekrʌtˌeri","meaning":"秘书"},{"word":"administrator","ipa":"ʌdmˈɪnʌstrˌeɪtɝ","meaning":"管理者"},{"word":"professor","ipa":"prʌfˈesɝ","meaning":"教授"},{"word":"officer","ipa":"ˈɔfʌsɝ","meaning":"军官"},{"word":"teacher","ipa":"tˈitʃɝ","meaning":"教师"},{"word":"tutor","ipa":"tˈutɝ","meaning":"辅导教师；辅导员；导师"},{"word":"lecturer","ipa":"lˈektʃɝɝ","meaning":"授课教师"},{"word":"adviser","ipa":"ædvˈaɪzɝ","meaning":"指导老师"},{"word":"historian","ipa":"hɪstˈɔriʌn","meaning":"历史专家"},{"word":"supervisor","ipa":"sˈupɝvˌaɪzɝ","meaning":"导师"},{"word":"receptionist","ipa":"rɪsˈepʃʌnɪst","meaning":"接待员"},{"word":"chancellor","ipa":"tʃˈænsʌlɝ","meaning":"大学校长"},{"word":"assistant","ipa":"ʌsˈɪstʌnt","meaning":"助手"},{"word":"senior adviser","ipa":"sˈinjɝ ædvˈaɪzɝ","meaning":"资深督导师"},{"word":"paper","ipa":"pˈeɪpɝ","meaning":"报纸；论文"},{"word":"approach","ipa":"ʌprˈoʊtʃ","meaning":"方法；接近"},{"word":"content","ipa":"kˈɑntent","meaning":"内容"},{"word":"abstract","ipa":"æbstrˈækt","meaning":"摘要"},{"word":"project","ipa":"prˈɑdʒekt","meaning":"工程；研究课题；项目"},{"word":"revision","ipa":"rivˈɪʒʌn","meaning":"修改"},{"word":"extensive","ipa":"ɪkstˈensɪv","meaning":"广泛的"},{"word":"subject","ipa":"sʌbdʒˈekt","meaning":"主题；学科"},{"word":"survey","ipa":"sɝvˈeɪ","meaning":"测量；调查"},{"word":"research","ipa":"risˈɝtʃ","meaning":"研究；科研"},{"word":"reading","ipa":"rˈidɪŋ","meaning":"阅读"},{"word":"data","ipa":"dˈeɪtʌ","meaning":"数据"},{"word":"draft","ipa":"drˈæft","meaning":"草稿"},{"word":"ambition","ipa":"æmbˈɪʃʌn","meaning":"野心；抱负"},{"word":"well-organized","ipa":"wˈel ˈɔrɡʌnˌaɪzd","meaning":"组织良好的"},{"word":"subtopics","ipa":"—","meaning":"小标题"},{"word":"questionnaire","ipa":"kwˌestʃʌnˈer","meaning":"问卷"},{"word":"interview","ipa":"ˈɪntɝvjˌu","meaning":"面试；采访"},{"word":"respondent","ipa":"rɪspˈɑndʌnt","meaning":"被调查者"},{"word":"conclusion","ipa":"kʌnklˈuʒʌn","meaning":"结论"},{"word":"random","ipa":"rˈændʌm","meaning":"随机的"},{"word":"index","ipa":"ˈɪndeks","meaning":"索引"},{"word":"topic","ipa":"tˈɑpɪk","meaning":"话题"},{"word":"presentation","ipa":"prˌezʌntˈeɪʃʌn","meaning":"演讲"},{"word":"background","ipa":"bˈækɡrˌaʊnd","meaning":"背景"},{"word":"example","ipa":"ɪɡzˈæmpʌl","meaning":"例子"},{"word":"training","ipa":"trˈeɪnɪŋ","meaning":"培训"},{"word":"laser","ipa":"lˈeɪzɝ","meaning":"激光"},{"word":"printing","ipa":"prˈɪntɪŋ","meaning":"打印"},{"word":"area","ipa":"ˈeriʌ","meaning":"地区；部分"},{"word":"chapter","ipa":"tʃˈæptɝ","meaning":"章节"},{"word":"case study","ipa":"kˈeɪs stˈʌdi","meaning":"个案分析"},{"word":"report","ipa":"ripˈɔrt","meaning":"报告"},{"word":"method","ipa":"mˈeθʌd","meaning":"方式"},{"word":"title","ipa":"tˈaɪtʌl","meaning":"标题"},{"word":"theory","ipa":"θˈɪri","meaning":"理论"},{"word":"whiteboard","ipa":"—","meaning":"白板"},{"word":"aid","ipa":"ˈeɪd","meaning":"帮助"},{"word":"overhead","ipa":"ˈoʊvɝhˈed","meaning":"头上的"},{"word":"objective","ipa":"ʌbdʒˈektɪv","meaning":"目标"},{"word":"visual","ipa":"vˈɪʒʌwʌl","meaning":"视觉的"},{"word":"finding","ipa":"fˈaɪndɪŋ","meaning":"发现"},{"word":"faculty","ipa":"fˈækʌlti","meaning":"系"},{"word":"heading","ipa":"hˈedɪŋ","meaning":"标题"},{"word":"subtitle","ipa":"sˈʌbtˌaɪtʌl","meaning":"小标题；字幕"},{"word":"observation","ipa":"ˌɑbzɝvˈeɪʃʌn","meaning":"观察"},{"word":"strategy","ipa":"strˈætʌdʒi","meaning":"策略"},{"word":"outline","ipa":"ˈaʊtlˌaɪn","meaning":"提纲"},{"word":"script","ipa":"skrˈɪpt","meaning":"手稿"},{"word":"summary","ipa":"sˈʌmɝi","meaning":"摘要"},{"word":"scientific","ipa":"sˌaɪʌntˈɪfɪk","meaning":"科学的"},{"word":"reference","ipa":"rˈefɝʌns","meaning":"参考书目；证明人"},{"word":"review","ipa":"rˌivjˈu","meaning":"评论；复习"},{"word":"analysis","ipa":"ʌnˈælʌsʌs","meaning":"分析"},{"word":"library","ipa":"lˈaɪbrerˌi","meaning":"图书馆"},{"word":"catalog","ipa":"kˈætʌlɔɡ","meaning":"目录"},{"word":"due","ipa":"dˈu","meaning":"应付费"},{"word":"renewal","ipa":"rɪnˈuʌl","meaning":"更新；续借"},{"word":"overdue and pay a fine","ipa":"ˈoʊvɝdˈu ʌnd pˈeɪ ʌ fˈaɪn","meaning":"过期并交罚款"},{"word":"out on loan","ipa":"ˈaʊt ˈɑn lˈoʊn","meaning":"借出的"},{"word":"category","ipa":"kˈætʌɡˌɔri","meaning":"种类"},{"word":"closed reserve","ipa":"klˈoʊzd rɪzˈɝv","meaning":"只读不借的区域"},{"word":"circulation","ipa":"sˈɝkjʌlˌeɪʃʌn","meaning":"循环"},{"word":"classification","ipa":"klˌæsʌfʌkˈeɪʃʌn","meaning":"分类"},{"word":"bibliography","ipa":"bˌɪbliˈɑɡrʌfi","meaning":"参考书目"},{"word":"periodical","ipa":"pˌɪriˈɑdɪkʌl","meaning":"期刊"},{"word":"reserve","ipa":"rɪzˈɝv","meaning":"预借"},{"word":"interlibrary service","ipa":"sˈɝvʌs","meaning":"图书馆际服务"},{"word":"open shelves","ipa":"ˈoʊpʌn ʃˈelvz","meaning":"开架书库"},{"word":"close shelves","ipa":"klˈoʊs ʃˈelvz","meaning":"闭架书库"},{"word":"check out","ipa":"tʃˈek ˈaʊt","meaning":"登记并借出"},{"word":"delivery desk","ipa":"dɪlˈɪvɝi dˈesk","meaning":"借书台"},{"word":"internet system","ipa":"ˈɪntɝnˌet sˈɪstʌm","meaning":"互联网系统"},{"word":"recall","ipa":"rˈikˌɔl","meaning":"回忆；要求归还某物"},{"word":"pink","ipa":"pˈɪŋk","meaning":"粉色"},{"word":"slip","ipa":"slˈɪp","meaning":"一张纸"},{"word":"stack","ipa":"stˈæk","meaning":"书库"},{"word":"circle","ipa":"sˈɝkʌl","meaning":"圆"},{"word":"copy","ipa":"kˈɑpi","meaning":"复印"},{"word":"card index","ipa":"kˈɑrd ˈɪndeks","meaning":"卡片索引"}];const KEY="ielts_vocab_workbench_v1";let S=JSON.parse(localStorage.getItem(KEY)||"null")||{cursor:0,mastered:{}};
+function toggleMastered(i, checked){
+  if(checked){
+    S.mastered[i] = 1;
+  }else{
+    delete S.mastered[i];
+  }
+  save();
+  render();
+}
+
+function save(){localStorage.setItem(KEY,JSON.stringify(S))}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function norm(s){return s.toLowerCase().trim().replace(/[’‘]/g,"'").replace(/\s+/g," ")}
+function render(reset){
+ const n=Math.max(1,Math.min(DATA.length,+document.getElementById("daily").value||200)),mode=document.getElementById("mode").value;
+ const arr=DATA.map((x,i)=>({...x,i})).filter(()=>true);const start=arr.length?S.cursor%arr.length:0;const show=[];
+ for(let k=0;k<n&&k<arr.length;k++)show.push(arr[(start+k)%arr.length]);
+ document.getElementById("total").textContent=DATA.length;document.getElementById("shown").textContent=show.length;document.getElementById("mastered").textContent=Object.keys(S.mastered).length;document.getElementById("pos").textContent=(S.cursor%DATA.length+1)+" / "+DATA.length;document.getElementById("bar").style.width=(Object.keys(S.mastered).length/DATA.length*100)+"%";
+ const box=document.getElementById("cards");box.innerHTML="";
+ if(!show.length){box.innerHTML='<div class="panel empty">暂无词汇可显示。</div>';return}
+ show.forEach(x=>{const c=document.createElement("article");c.className="card"+(S.mastered[x.i]?" mastered":"");c.innerHTML='<div class="word">'+esc(x.word)+'</div><div class="ipa">'+esc(x.ipa)+'</div><div class="meaning">'+esc(x.meaning)+'</div><div class="exercise"><input data-spell="'+x.i+'" placeholder="输入英文拼写，按 Enter 检查" autocomplete="off"></div><div class="feedback" id="f'+x.i+'"></div><div class="actions"><label class="familiar"><input type="checkbox" data-master="'+x.i+'" '+(S.mastered[x.i]?"checked":"")+'> 非常熟悉，以后不再练</label><button class="soft" data-speak="'+esc(x.word)+'">🔊 发音</button></div>';box.appendChild(c)});
+ box.querySelectorAll("[data-spell]").forEach(inp=>inp.addEventListener("keydown",e=>{if(e.key!=="Enter")return;const i=+inp.dataset.spell,fb=document.getElementById("f"+i);if(norm(inp.value)===norm(DATA[i].word)){fb.textContent="✓ 拼写正确";fb.className="feedback correct";inp.style.borderColor="#58b488"}else{fb.textContent="✕ 拼写错误，请再试一次";fb.className="feedback wrong";inp.style.borderColor="#db6969"}}));
+ box.querySelectorAll("[data-master]").forEach(ch=>ch.addEventListener("change",e=>{const i=+e.target.dataset.master;if(e.target.checked)S.mastered[i]=1;else delete S.mastered[i];save();render(true)}));
+ box.querySelectorAll("[data-speak]").forEach(b=>b.addEventListener("click",()=>{if(!("speechSynthesis" in window))return;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(b.dataset.speak);u.lang="en-GB";speechSynthesis.speak(u)}));
+ if(!reset){S.cursor=(S.cursor+show.length)%DATA.length;save()}
+}
+function resetProgress(){if(confirm("确定清除全部熟悉标记和学习位置吗？")){S={cursor:0,mastered:{}};save();render(true)}}
+render(true);
+
+function escapeHtml(v){
+  return String(v ?? '').replace(/[&<>"']/g, ch => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+}
+function escapeAttr(v){
+  return escapeHtml(v);
+}
+
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}
+</script></body></html>
